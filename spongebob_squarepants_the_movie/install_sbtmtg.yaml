@@ -1,0 +1,113 @@
+name: "Spongebob Schwammkopf: Der Film"
+game_slug: the-spongebob-squarepants-movie
+version: CD-ROM-German-retail-version-1.0
+slug: CD-ROM-German-retail-version-1.0
+runner: wine
+
+script:
+  game:
+    arch: win32
+    exe: $GAMEDIR/drive_c/Program Files (x86)/THQ/Nick Games/SpongeBob Schwammkopf/Der Film/sb4.exe
+    prefix: $GAMEDIR
+  wine:
+    dxvk: true
+    esync: true
+
+  installer:
+    - insert-disc:
+        requires: "setup.exe"
+
+    # Create wine prefix
+    - task:
+        arch: win32
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+
+    - write_file:
+        file: $GAMEDIR/drive_c/setup.iss
+        content: '[InstallShield Silent]
+
+Version=v7.00
+
+File=Response File
+
+[File Transfer]
+
+OverwrittenReadOnly=NoToAll
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-DlgOrder]
+
+Dlg0={E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdWelcome-0
+
+Count=5
+
+Dlg1={E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdLicense-0
+
+Dlg2={E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdComponentDialog-0
+
+Dlg3={E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdFinish-0
+
+Dlg4={E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdFinish-1
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdWelcome-0]
+
+Result=1
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdLicense-0]
+
+Result=1
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdComponentDialog-0]
+
+szDir=C:\Program Files (x86)\THQ\Nick Games\SpongeBob Schwammkopf\Der Film
+
+Component-type=string
+
+Component-count=1
+
+Component-0=Program Files
+
+Result=1
+
+[Application]
+
+Name=SpongeBob Schwammkopf - Der Film
+
+Version=1.0
+
+Company=Nick Games
+
+Lang=0007
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdFinish-0]
+
+Result=1
+
+bOpt1=0
+
+bOpt2=0
+
+[{E81A7285-8CA6-4430-B6C0-5F719E4D40D9}-SdFinish-1]
+
+Result=1
+
+bOpt1=0
+
+bOpt2=0'
+
+    # Run the Installer
+    - task:
+        executable: $DISC/setup.exe
+        args: /s /f1C:\setup.iss
+        name: wineexec
+        prefix: $GAMEDIR
+        description: 'Running the setup...
+
+When the setup runs it could look like your computer has frozen and you will hear water-like sounds.
+
+This is normal and due to the game´s setup running silently.
+
+Please just wait until it stops.'
