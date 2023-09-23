@@ -79,3 +79,13 @@ vcredist_x86.exe | *The flags were not obtainable from the setup*
 
 ### Recommandation for performance
 You should disable Nvidia Physx, leaving it enabled will likely drop your framerate below 10 fps in some levels even on a modern and beefy computer.
+
+## Terminator: Resistance
+
+The script is written for the GOG version.   
+
+### Using the correct wine version from Lutris
+The standard lutris-wine version can install the game, but it cannot run it.   
+If you try to start the game with the standard lutris-wine version, you will only get the game´s splash screen and nothing more.   
+You have to use a "lutris-GE-Proton" wine version (please use the newest version).   
+With it, it will run perfectly.
