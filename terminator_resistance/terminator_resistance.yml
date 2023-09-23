@@ -1,0 +1,50 @@
+name: "Terminator: Resistance"
+game_slug: terminator-resistance
+version: GOG - version 1.0.60d
+slug: GOG - version 1.0.60d
+runner: wine
+
+script:
+  files:
+    - installer: N/A:Select the EXE downloaded from GOG
+  install_complete_text: 'Installation finished!
+
+
+
+
+IMPORTANT!
+
+============
+
+
+Please change the wine version in the game´s settings to the newest "lutris-GE-Proton" version,
+
+if it is not already set.
+
+This game does not run with the standard "lutris-wine" version.'
+  game:
+    arch: win64
+    gogid: "1662585593"
+    exe: $GAMEDIR/drive_c/GOG Games/Terminator Resistance/Terminator.exe
+    prefix: $GAMEDIR
+  wine:
+    dxvk: true
+    esync: true
+
+  installer:
+    # Create wine prefix
+    - task:
+        arch: win64
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+
+    # Run the installer
+    - task:
+        description: Running Game setup, please wait...
+        executable: installer
+        args: /SILENT /LANG=en /SP- /NOCANCEL /SUPPRESSMSGBOXES /NOGUI /DIR="C:\GOG Games\Terminator Resistance"
+        name: wineexec
+        prefix: $GAMEDIR
