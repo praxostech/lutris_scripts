@@ -1,0 +1,20 @@
+name: "Terminator: Resistance"
+game_slug: terminator-resistance
+slug: 'DLC: Annihilation Line; GOG v1.0.60d'
+version: 'DLC: Annihilation Line; GOG v1.0.60d'
+runner: wine
+
+script:
+  extends: terminator-resistance
+  files:
+    - installer: N/A:Select the EXE downloaded from GOG
+  game:
+    gogid: "2059907741"
+    prefix: $GAMEDIR
+  installer:
+    - task:
+        description: Running Game setup, please wait...
+        executable: installer
+        args: /SILENT /LANG=en /SP- /NOCANCEL /SUPPRESSMSGBOXES /NOGUI /DIR="C:\GOG Games\Terminator Resistance"
+        name: wineexec
+        prefix: $GAMEDIR
