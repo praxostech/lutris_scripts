@@ -1,0 +1,20 @@
+name: "Democracy 3"
+game_slug: "democracy-3"
+version: "GOG - DLC: Clones and Drones"
+runner: linux
+slug: "GOG - DLC: Clones and Drones"
+
+script:
+  extends: "democracy-3"
+  files:
+  - goginstaller: N/A:Please select the GOG.com Linux installer
+  game:
+    gogid: 1207666613
+  installer:
+  - extract:
+      dst: $CACHE/GOG
+      file: goginstaller
+      format: zip
+  - merge:
+      dst: $GAMEDIR
+      src: $CACHE/GOG/data/noarch/
