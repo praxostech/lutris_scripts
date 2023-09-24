@@ -1,0 +1,19 @@
+name: "Democracy 3: Africa"
+game_slug: "democracy-3-africa"
+version: "GOG"
+runner: linux
+slug: "GOG"
+
+script:
+  files:
+  - goginstaller: N/A:Please select the GOG.com Linux installer
+  game:
+    gogid: 1459868439
+  installer:
+  - extract:
+      dst: $CACHE/GOG
+      file: goginstaller
+      format: zip
+  - merge:
+      dst: $GAMEDIR
+      src: $CACHE/GOG/data/noarch/
