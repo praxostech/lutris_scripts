@@ -92,3 +92,8 @@ With it, it will run perfectly.
 
 ## Democracy 3
 The scripts are written for the GOG version.
+
+## Plants vs Zombies - Game of the year edition
+Plants vs Zombies can stutter on Wine.   
+The shell script fixes the issue.   
+The lutris script downloads the shell script and runs it.
