@@ -1,0 +1,20 @@
+name: "PVZ GOTY performance fix"
+game_slug: plants-vs-zombies-game-of-the-year
+version: "pvz-performance-fix"
+slug: "pvz-performance-fix"
+runner: wine
+
+script:
+  require-binaries: pgrep, pkill, dirname
+  extends: plants-vs-zombies-game-of-the-year
+  files:
+  - pvzfix-script: "https://raw.githubusercontent.com/praxostech/lutris_scripts/main/plants_vs_zombies_goty/pvzfix.sh"
+  game:
+    prefix: $GAMEDIR
+  installer:
+    - merge:
+        src: pvzfix-script
+        dst: $GAMEDIR/drive_c/
+    - chmodx: $GAMEDIR/drive_c/pvzfix.sh
+    - execute:
+        command: $GAMEDIR/drive_c/pvzfix.sh $WINEBIN $GAMEDIR
