@@ -1,0 +1,30 @@
+name: 'Star Trek: Voyager - Elite Force'
+game_slug: "star-trek-voyager-elite-force"
+slug: star-trek-voyager-elite-force-gog
+notes: "The standard 'lutris-wine' version will cause a graphical bug.\nPlease change the wine version to the newest version of 'lutris-GE-Proton' or 'wine-ge' after the installation is complete."
+version: GOG
+year: 2000
+runner: wine
+
+script:
+  files:
+  - gogsetup: N/A:Select the EXE downloaded from GOG
+
+  install_complete_text: "Installation finished!\n\n\n\nIMPORTANT!\n============\nPlease change the wine version in the game´s settings to the newest \"lutris-GE-Proton\"- or \"wine-ge\"-version,\nif it is not already set.\nThe standard \"lutris-wine\" version will cause a graphical bug."
+  game:
+    gogid: 1581756945
+    prefix: $GAMEDIR
+    exe: $GAMEDIR/drive_c/GOG Games/Star Trek Elite Force/stvoy.exe
+    launch_configs:
+      - exe: $GAMEDIR/drive_c/GOG Games/Star Trek Elite Force/stvoyHM.exe
+        name: Holomatch (Multiplayer)
+  installer:
+  - task:
+      name: create_prefix
+      prefix: $GAMEDIR
+  - task:
+      description: 'Running game setup, please wait...'
+      executable: gogsetup
+      args: "/VERYSILENT /SUPPRESSMSGBOXES"
+      name: wineexec
+      prefix: $GAMEDIR
