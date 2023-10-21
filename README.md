@@ -127,3 +127,17 @@ Polish | Polish | pl-PL
 Portuguese (Brazilian) | Portuguese (Brazilian) | pt-BR
 Russian | Russian | ru-RU
 Spanish | Spanish | es-ES
+
+## Spongebob Squarepants: Battle for Bikini Bottom
+The script works like the one of "Spongebob Squarepants: The Movie".   
+I also generated a ```setup.iss```-file and provide it in this repository.   
+Please read the documentation for "Spongebob Squarepants: The Movie", if you need futher technical notes.
+
+### Issues:
+#### Cursor stutter
+At the moment (2023-10-21) the cursor stutters in some minigames.
+
+#### Does not install with standard "lutris-wine" version
+The game does not install when using the standard "lutris-wine"-version.   
+Since Lutris does not offer to "just use the newest 'lutris-proton-ge' or 'wine-ge'-version", I had to hard code a specific "wine-ge"-version into the script.   
+Feel free to use newer versions of 'lutris-proton-ge' or 'wine-ge', if you wish.
