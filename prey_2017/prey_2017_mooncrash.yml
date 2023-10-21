@@ -1,0 +1,20 @@
+name: "Prey: Mooncrash"
+game_slug: prey
+slug: 'DLC: Mooncrash - Version 12742273'
+version: 'DLC: Mooncrash - Version 12742273'
+runner: wine
+
+script:
+  extends: prey
+  files:
+    - installer: N/A:Select the EXE downloaded from GOG
+  game:
+    gogid: "1419994872"
+    prefix: $GAMEDIR
+  installer:
+    - task:
+        description: Running the setup. This will take a while, please wait...
+        executable: installer
+        args: "/VERYSILENT /SUPPRESSMSGBOXES"
+        name: wineexec
+        prefix: $GAMEDIR

@@ -1,0 +1,84 @@
+game_slug: prey
+slug: prey-gog
+name: Prey
+notes: 'Please change the wine version in the game´s settings to the newest "lutris-GE-Proton"- or "wine-ge"-version after the installation, if it is not already set.
+
+This game does not run with the standard "lutris-wine" version.'
+version: GOG - Version 12742273
+year: 2017
+gogid: 1914819310
+runner: wine
+script:
+  files:
+  - goginstaller: N/A:Select the game's setup file
+  install_complete_text: 'Installation finished!
+
+
+
+
+IMPORTANT!
+
+============
+
+
+Please change the wine version in the game´s settings to the newest "lutris-GE-Proton"- or "wine-ge" version,
+
+if it is not already set.
+
+This game does not run with the standard "lutris-wine" version.'
+  game:
+    arch: win64
+    exe: $GAMEDIR/drive_c/GOG Games/Prey/Binaries/Danielle/x64-GOG/Release/Prey.exe
+    prefix: $GAMEDIR
+  installer:
+  - input_menu:
+         description: "Please choose your preferred language."
+         id: LANG
+         options:
+           - 'Chinese (Simplified)_zh-Hans': Chinese (Simplified)
+           - 'Chinese (Traditional)_zh-Hant': Chinese (Traditional)
+           - "English_en-US": English
+           - "French_fr-FR": French
+           - "German_de-DE": German
+           - "Italian_it-IT": Italian
+           - "Japanese_ja-JP": Japanese
+           - "Polish_pl-PL": Polish
+           - "Portuguese (Brazilian)_pt-BR": Portuguese
+           - "Russian_ru-RU": Russian
+           - "Spanish_es-ES": Spanish
+         preselect: English_en-US
+
+# Create wine prefix
+  - task:
+      name: create_prefix
+      prefix: $GAMEDIR
+      install_gecko: false
+      install_mono: false
+
+# Run the game setup
+  - task:
+      description: Running game setup... This will take a while, please wait...
+      executable: goginstaller
+      args: "/VERYSILENT /SUPPRESSMSGBOXES"
+      name: wineexec
+      prefix: $GAMEDIR
+
+# Backup the original config file
+  - execute:
+      command: cp "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info" "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info.bak"
+
+# Place the placeholders in the config file; they will be replaced with the correct config values in the next step
+# Why have I solved it in such a complicated manner?: Lutris did not resolve the variables if I used them in "write_json"
+  - write_json:
+      file: "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info"
+      data:
+        language: PLACEHOLDER1
+        languages:
+          - PLACEHOLDER2
+
+# Set the desired language in the game´s config file
+# The sed command is also compatible with non-gnu versions
+  - execute:
+      command: sed -e "s/PLACEHOLDER1/$(echo "$INPUT_LANG" | cut -d'_' -f1)/" -e "s/PLACEHOLDER2/$(echo "$INPUT_LANG" | cut -d'_' -f2)/" "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info" > "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info.modified"
+  - execute:
+      command: mv "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info.modified" "$GAMEDIR/drive_c/GOG Games/Prey/goggame-1158493447.info"

@@ -97,3 +97,33 @@ The scripts are written for the GOG version.
 Plants vs Zombies can stutter on Wine.   
 The shell script fixes the issue.   
 The lutris script downloads the shell script and runs it.
+
+## Prey (2017)
+
+### Language configuration
+
+The locale configuration is stored in the file ```goggame-1158493447.info```, which is located in the directory, that you installed the game to.   
+
+There are two values, that have to be set.   
+Those are:   
+``` 
+"language": "LANGUAGE_NAME",
+    "languages": [
+        "LANGUAGE_CODE"
+    ],
+```
+You can obtain your needed values in the table:
+
+language | LANGUAGE_NAME | LANGUAGE_CODE
+-|-|-
+Chinese (Simplified) | Chinese (Simplified) | zh-Hans
+Chinese (Traditional) | Chinese (Traditional) | zh-Hant
+English | English | en-US
+French | French | fr-FR
+German | German | de-DE
+Italian | Italian | it-IT
+Japanese | Japanese | ja-JP
+Polish | Polish | pl-PL
+Portuguese (Brazilian) | Portuguese (Brazilian) | pt-BR
+Russian | Russian | ru-RU
+Spanish | Spanish | es-ES
