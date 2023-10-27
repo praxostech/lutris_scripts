@@ -1,0 +1,25 @@
+name: "Mario Kart: Speed Strife"
+game_slug: mario-kart-speed-strife
+version: freeware
+slug: freeware
+runner: wine
+
+script:
+  files:
+  - gamezip:
+      url: "https://mfgg.net/index.php?sess=0a948775cf4022a735a592676e49d2b3&act=resdb&param=03&c=2&id=31532"
+      filename: mario_kart_speed_strife.zip
+  game:
+    exe: "$GAMEDIR/drive_c/Program Files/mario_kart_speed_strife/Mario Kart - Speed Strife.exe"
+    prefix: $GAMEDIR
+  installer:
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - extract:
+        dst: $GAMEDIR/drive_c/Program Files/mario_kart_speed_strife
+        file: gamezip
+        format: zip
