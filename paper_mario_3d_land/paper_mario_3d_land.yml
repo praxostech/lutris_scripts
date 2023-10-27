@@ -1,0 +1,28 @@
+name: "Paper Mario 3D Land"
+game_slug: paper-mario-3d-land
+version: freeware
+slug: freeware
+runner: wine
+
+script:
+  files:
+  - gamezip:
+      url: "https://mfgg.net/index.php?act=resdb&param=03&c=2&id=30485"
+      filename: PM3DL_v1_.zip
+# This game performs much better without DXVK
+  wine:
+    dxvk: false
+  game:
+    exe: "$GAMEDIR/drive_c/Program Files/paper_mario_3d_land/SM3DL.exe"
+    prefix: $GAMEDIR
+  installer:
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - extract:
+        dst: $GAMEDIR/drive_c/Program Files/paper_mario_3d_land
+        file: gamezip
+        format: zip
