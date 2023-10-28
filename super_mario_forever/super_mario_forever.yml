@@ -1,0 +1,48 @@
+name: "Super Mario Forever"
+game_slug: super_mario_forever
+version: freeware - version 7.1
+slug: freeware - version 7.1
+runner: wine
+notes: "* Running the game in fullscreen will result in a visual bug where the game will cover one quarter of the screen.\n   Alt-Tabing 1-3 times to another program and back to game will make the game displaying properly.\n   Running the game in windowed mode will work just fine.\n* Please change your wine version to the newest release of 'wine-ge' or 'Lutris-GE-Proton' after the installation, if it is not already set. The game will not work in fullscreen with the standard 'lutris-wine'-version."
+
+script:
+
+  files:
+  - gamezip:
+      url: "https://archive.org/download/mario-forever-collection/MarioForeverCollection.zip"
+      filename: MarioForeverCollection.zip
+
+  install_complete_text: "Installation finished!\n\n\n\nIMPORTANT!\n============\n\nPlease change the wine version in the game´s settings to the newest 'lutris-GE-Proton'- or 'wine-ge' version,\nif it is not already set.\nThis game does not run with the standard 'lutris-wine' version."
+
+  game:
+    exe: $GAMEDIR/drive_c/Program Files (x86)/softendo.com/Mario Forever 7.01 Beta 2017/MarioForever 7.01 Beta.exe
+    prefix: $GAMEDIR
+
+  wine:
+    # With DXVK enabled it is not possible to use the fullscreen mode without big graphical bugs.
+    # If you launch into fullscreen, alt-tab between Mario Forever and another program 2-3 times and the game will properly display in fullscreen
+    dxvk: false
+
+  installer:
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - extract:
+        dst: $GAMEDIR/drive_c/mario_forever_setups
+        file: gamezip
+        format: zip
+    - task:
+        app: sandbox
+        description: Sandbox the wine prefix
+        name: winetricks
+        prefix: $GAMEDIR
+        silent: true
+    # Run the Installer
+    - task:
+        executable: "$GAMEDIR/drive_c/mario_forever_setups/Mario Forever 7.01.exe"
+        name: wineexec
+        prefix: $GAMEDIR
+        description: 'Running the setup...'
