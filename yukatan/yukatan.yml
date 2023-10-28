@@ -3,6 +3,7 @@ game_slug: yukatan
 version: CD-ROM
 slug: CD-ROM
 runner: wine
+year: 1997
 
 script:
   game:
