@@ -1,0 +1,29 @@
+name: "Yukatan: Das Gold der Mayas"
+game_slug: yukatan
+version: CD-ROM
+slug: CD-ROM
+runner: wine
+year: 1997
+
+script:
+  game:
+    exe: "$GAMEDIR/drive_c/Program Files/yukatan/launch.bat"
+    prefix: $GAMEDIR
+  installer:
+    - insert-disc:
+        requires: "YUCATAN.EXE"
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        arch: win32
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - merge:
+        src: $DISC
+        dst: "$GAMEDIR/drive_c/Program Files/yukatan"
+    - execute:
+        command: 'chmod 750 -R "$GAMEDIR/drive_c/Program Files/yukatan"'
+    - write_file:
+        file: "$GAMEDIR/drive_c/Program Files/yukatan/launch.bat"
+        content: '"C:\Program Files\yukatan\GPLAY32.EXE" /NC:\Program Files\yukatan\YUCATAN'
