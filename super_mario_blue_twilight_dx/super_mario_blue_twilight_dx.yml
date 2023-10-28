@@ -1,0 +1,62 @@
+name: "Super Mario Blue Twilight DX"
+game_slug: super-mario-blue-twilight-dx
+version: freeware
+slug: freeware
+runner: wine
+
+script:
+  files:
+  - gamezip:
+      # Page in MFGG: https://www.mfgg.net/index.php?act=resdb&param=02&c=2&id=1963
+      url: "https://mfgg.net/index.php?sess=b1d3172f0e383b2f7b4142d108097ba1&act=resdb&param=03&c=2&id=1963"
+      filename: bluetwilight_.zip
+  - setupunpacker:
+      url: "https://github.com/Bioruebe/cicdec/releases/download/3.0.1/cicdec.zip"
+      filename: cicdec.zip
+  game:
+    exe: "$GAMEDIR/drive_c/Program Files (x86)/Super Mario Blue Twilight DX/MWNDX.exe"
+    prefix: $GAMEDIR
+
+  wine:
+    # I don´t know why, but cicdec fails to extract the setup if dxvk is enabled
+    dxvk: false
+
+  installer:
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - extract:
+        dst: "$GAMEDIR/drive_c/cicdec"
+        file: setupunpacker
+        format: zip
+    - extract:
+        dst: "$GAMEDIR/drive_c/cicdec"
+        file: gamezip
+        format: zip
+    # I chose to unpack the setup instead of running it because it guarantess, that the game is installed in the correct directory.
+    # When using the wineexec task I was running into errors if I tried to use longer path names.
+    # So my solution was to unpack the files in a subdirectory of C:\; it is not the best solution, but it works.
+    # Maybe I will optimize the script in the future, if I do have the time and a good reason to do so.
+    - task:
+        name: wineexec
+        description: 'Unpacking the setup...'
+        prefix: $GAMEDIR
+        executable: "$GAMEDIR/drive_c/cicdec/cicdec.exe"
+        args: 'C:\\cicdec\\MarioWeenDX_LQ.exe C:\\cicdec\\smbtdx'
+    - task:
+        app: sandbox
+        description: Sandbox the wine prefix
+        name: winetricks
+        prefix: $GAMEDIR
+        silent: true
+    - move:
+        description: Placing game files
+        src: $GAMEDIR/drive_c/cicdec/smbtdx
+        dst: "$GAMEDIR/drive_c/Program Files (x86)/Super Mario Blue Twilight DX"
+
+    # Remove temporary files, that are no longer nedded
+    - execute:
+        command: 'rm -r $GAMEDIR/drive_c/cicdec'
