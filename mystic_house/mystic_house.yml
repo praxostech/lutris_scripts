@@ -1,0 +1,29 @@
+name: "Mystic House"
+game_slug: mystic-house
+version: CD-ROM
+slug: CD-ROM
+runner: wine
+year: 1997
+
+script:
+  game:
+    exe: "$GAMEDIR/drive_c/Program Files/MysticHouse/launch.bat"
+    prefix: $GAMEDIR
+  installer:
+    - insert-disc:
+        requires: "HOUSE.EXE"
+    - task:
+        description: Creating Wine Prefix
+        name: create_prefix
+        arch: win32
+        install_gecko: false
+        install_mono: false
+        prefix: $GAMEDIR
+    - merge:
+        src: $DISC
+        dst: "$GAMEDIR/drive_c/Program Files/MysticHouse"
+    - execute:
+        command: 'chmod 750 -R "$GAMEDIR/drive_c/Program Files/MysticHouse"'
+    - write_file:
+        file: "$GAMEDIR/drive_c/Program Files/MysticHouse/launch.bat"
+        content: '"C:\Program Files\MysticHouse\GPLAY32.EXE" /NC:\Program Files\MysticHouse\HOUSE'
