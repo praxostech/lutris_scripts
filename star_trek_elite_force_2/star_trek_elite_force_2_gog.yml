@@ -16,7 +16,6 @@ script:
   - masterserverpatch:
       url: "https://www.moddb.com/mods/a-gate-two-birds-and-the-beautiful-sky/downloads/master-server-patch-for-star-trek-elite-force-2"
       filename: "ef2_multiplayer_master_server_fix-100.zip"
-  install_complete_text: "Installation finished!\n\n\n\nIMPORTANT!\n============\nPlease change the wine version in the game´s settings to the newest \"lutris-GE-Proton\"- or \"wine-ge\"-version,\nif it is not already set.\nThe standard \"lutris-wine\" version will cause a graphical bug."
 
   game:
     gogid: 2125201406
@@ -36,15 +35,15 @@ script:
       description: "Please choose your preferred language."
       id: Locale
       options:
-        - "english/locpak1_en.pk3": English
-        - "deutsch/locpak1_de.pk3": German
-      preselect: "english/locpak1_en.pk3"
+        - "/drive_c/GOG Games/Star Trek Elite Force II/base/locpak1.pk3.bak": English
+        - "/drive_c/ef2_languagepack/deutsch/locpak1_de.pk3": German
+      preselect: "/drive_c/GOG Games/Star Trek Elite Force II/base/locpak1.pk3.bak"
   - task:
       description: Creating Wine prefix
       name: create_prefix
       prefix: $GAMEDIR
   - extract:
-      dst: $CACHE/ef2_languagepack
+      dst: $GAMEDIR/drive_c/ef2_languagepack
       file: languagepack
       format: zip
   - extract:
@@ -73,8 +72,8 @@ script:
       dst: $GAMEDIR/drive_c/GOG Games/Star Trek Elite Force II/base/locpak1.pk3.bak
   # Place the desired locale package
   - move:
-      src: $CACHE/ef2_languagepack/$INPUT_Locale
-      dst: $GAMEDIR/drive_c/GOG Games/Star Trek Elite Force II/base/
+      src: $GAMEDIR/$INPUT_Locale
+      dst: $GAMEDIR/drive_c/GOG Games/Star Trek Elite Force II/base/locpak1-custom.pk3
   # Place the master server patch
   - move:
       src: $CACHE/msp/ef2_multiplayer_master_server_fix-100.exe
