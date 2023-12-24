@@ -1,0 +1,52 @@
+description: ''
+game_slug: deus-ex
+gogslug: deus_ex
+humblestoreid: deus-ex-game-of-the-year-edition
+installer_slug: deus-ex-gog
+name: Deus Ex
+notes: ''
+runner: wine
+script:
+  custom-name: 'Deus Ex: Game of the Year Edition'
+  files:
+  - setup: N/A:Select GOG's setup file
+  game:
+    arch: win32
+    exe: drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.exe
+    gogid: 1207658995
+    prefix: $GAMEDIR
+  installer:
+  - task:
+      args: /VERYSILENT /SUPPRESSMSGBOXES
+      executable: setup
+      name: wineexec
+      prefix: $GAMEDIR
+  - write_config:
+      file: $GAMEDIR/drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.ini
+      key: GameRenderDevice
+      section: Engine.Engine
+      value: OpenGLDrv.OpenGLRenderDevice
+  - write_config:
+      file: $GAMEDIR/drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.ini
+      key: FirstRun
+      section: FirstRun
+      value: 1100
+  - write_config:
+      file: $GAMEDIR/drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.ini
+      key: FullscreenColorBits
+      section: WinDrv.WindowsClient
+      value: 32
+  - write_config:
+      file: $GAMEDIR/drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.ini
+      key: FullscreenViewportX
+      section: WinDrv.WindowsClient
+      value: 1280
+  - write_config:
+      file: $GAMEDIR/drive_c/GOG Games/Deus Ex GOTY/System/DeusEx.ini
+      key: FullscreenViewportY
+      section: WinDrv.WindowsClient
+      value: 1024
+slug: deus-ex-gog
+steamid: 6910
+version: GOG
+year: 2000
